@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', authRoutes);
 
-app.get('/', (req, res) => res.status(200).send(`<h3>Welcome to PREN Todo App!</h3>`));
+app.get('/', (req, res) => res.status(200).send(`<h1 style="text-align: center; padding-top: 30vh">Welcome to PREN Todo App!</h1>`));
 
 
 
