@@ -7,8 +7,8 @@ const todoRoutes = Router();
 
 todoRoutes.post('/todos', verifyToken, TodoController.createTodo);
 todoRoutes.get('/todos', verifyToken, TodoController.getUserTodos);
-todoRoutes.get('/todos/:id', TodoController.getTodo);
-todoRoutes.put('/todos/:id', TodoController.updateTodo);
-todoRoutes.delete('/todos/:id', TodoController.deleteTodo);
+todoRoutes.get('/todos/:id', verifyToken, TodoController.getTodo);
+todoRoutes.put('/todos/:id', verifyToken, TodoController.updateTodo);
+todoRoutes.delete('/todos/:id', verifyToken, TodoController.deleteTodo);
 
 export default todoRoutes;
