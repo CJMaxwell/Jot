@@ -5,7 +5,6 @@ import generateToken from '../helpers/generateToken';
 
 class AuthController {
     static async signup(req, res) {
-        //console.log(req.body);
         try {
             const { firstName, lastName,email, password } = req.body;
             if(!(password && email)) {
@@ -16,7 +15,6 @@ class AuthController {
             };
             const hashedPassword = await hashPassword(password);
             const dbResponse = await db.User.create({firstName, lastName, email, password:hashedPassword});
-            //console.log(response);
             const user = {
                 id: dbResponse.dataValues.id,
                 firstName: dbResponse.dataValues.firstName,
@@ -80,12 +78,13 @@ class AuthController {
             };
             
         } catch (error) {
-            res.status(400).json({
+            res.status(500).json({
                 message: error.errors
             })
             
         }
     }
+
     static async updateUser(req, res){
         try {
             const { firstName, lastName } = req.body;
@@ -112,7 +111,7 @@ class AuthController {
                 });
             }
         } catch (error) {
-            res.status(400).json({
+            res.status(500).json({
                 message: error.errors
             })
         }
@@ -136,7 +135,7 @@ class AuthController {
                 });
             }
         } catch (error) {
-            res.status(400).json({
+            res.status(500).json({
                 message: error.errors
             })
         }

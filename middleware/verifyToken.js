@@ -5,7 +5,7 @@ const verifyToken = (req, res, next) => {
   const bearerHeader = req.headers['authorization'];
   if(!bearerHeader){
       res.status(403).json({
-          message: 'Access denied, unable to login user'
+          message: 'Access denied'
       });
       return;
   }
