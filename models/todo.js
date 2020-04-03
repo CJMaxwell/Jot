@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Todo.associate = function(models) {
     // associations can be defined here
-    Todo.belongsTo(models.User);
+    Todo.belongsTo(models.User,{
+      as: 'users',
+      foreignKey: 'userId',
+      targetKey: 'id',
+      onDelete: 'CASCADE',
+    });
   };
   return Todo;
 };
