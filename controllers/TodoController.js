@@ -1,7 +1,7 @@
 import db from '../models';
 
 class TodoController {
-    static async createTodo(req, res){
+    static async createTodo(req, res) {
         try {
             const { title, description } = req.body;
             if(!(title && description)) {
@@ -22,7 +22,7 @@ class TodoController {
             res.status(201).json({
                 todo
             });
-        } catch (error) {
+        } catch(error) {
            res.status(500).json({
                message: 'Unable to create Todo'
            })
@@ -30,7 +30,7 @@ class TodoController {
         
     }
 
-    static async getUserTodos(req, res){
+    static async getUserTodos(req, res) {
         try {
             const { id } = req.user;
             const dbResponse = await db.Todo.findAll({
@@ -38,8 +38,13 @@ class TodoController {
                     userId: id
                 }
             });
-            console.log(dbResponse);
-        } catch (error) {
+
+            let result = dbResponse.map(todo => todo.dataValues);
+            res.status(200).json(
+                result
+            )
+            
+        } catch(error) {
             res.status(500).json({
                 message: 'Unable to get Todos for user'
             })
@@ -47,7 +52,7 @@ class TodoController {
         }
     }
 
-    static async getTodo(req, res){
+    static async getTodo(req, res) {
         try {
             const { id } = req.user;
             const { id: userId } = req.params;
@@ -67,7 +72,7 @@ class TodoController {
             res.status(200).json({
                 todoItem
             })
-        } catch (error) {
+        } catch(error) {
             res.status(500).json({
                 message: 'An error occurred while fetching Todo'
             })
@@ -75,7 +80,7 @@ class TodoController {
          
     }
 
-    static async updateTodo(req, res){
+    static async updateTodo(req, res) {
         try {
             const { id } = req.user;
             const { id: userId } = req.params;
@@ -88,7 +93,6 @@ class TodoController {
                     }
                 }
             );
-            console.log(dbResponse);
             const [success] = dbResponse;
             if(success === 1) {
                 res.status(200).json({
@@ -104,7 +108,7 @@ class TodoController {
                     message: 'Todo was not updated'
                 });
             }
-        } catch (error) {
+        } catch(error) {
             res.status(500).json({
                 message: 'Todo could not be updated'
             });
@@ -112,7 +116,7 @@ class TodoController {
        
     }
 
-    static async deleteTodo(req, res){
+    static async deleteTodo(req, res) {
         try {
             const { id } = req.params;
             const { id:userId } = req.user;
@@ -122,7 +126,7 @@ class TodoController {
                     userId
                 }
             });
-            if(dbResponse === 1){
+            if(dbResponse === 1) {
                 res.status(200).json({
                     message: 'Todo was deleted successfully'
                 });
@@ -132,7 +136,7 @@ class TodoController {
                 });
             }
             
-        } catch (error) {
+        } catch(error) {
             res.status(500).json({
                 message: 'Todo could not be deleted'
             });

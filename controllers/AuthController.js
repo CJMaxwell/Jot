@@ -27,7 +27,7 @@ class AuthController {
                 token: generateToken(user)
             });
             
-        } catch (error) {
+        } catch(error) {
            res.status(400).json({
                message: error.errors[0].message
            });
@@ -38,7 +38,7 @@ class AuthController {
         try {
             const { email, password } = req.body;
 
-            if(!(email && password)){
+            if(!(email && password)) {
                 res.status(400).json({
                     message: 'Please your email and password'
                 });
@@ -51,7 +51,7 @@ class AuthController {
                 }
             });
             
-            if(!existingUser){
+            if(!existingUser) {
                 res.status(404).json({
                     message: 'User does not exist'
                 });
@@ -77,7 +77,7 @@ class AuthController {
                 });
             };
             
-        } catch (error) {
+        } catch(error) {
             res.status(500).json({
                 message: error.errors
             })
@@ -85,7 +85,7 @@ class AuthController {
         }
     }
 
-    static async updateUser(req, res){
+    static async updateUser(req, res) {
         try {
             const { firstName, lastName } = req.body;
             const { id } = req.params;
@@ -97,7 +97,7 @@ class AuthController {
                 }
             );
             const [success] = dbResponse;
-            if(success === 1){
+            if(success === 1) {
                 res.status(200).json({
                     message: 'User updated successfully',
                     user: {
@@ -110,14 +110,14 @@ class AuthController {
                     message: 'Unable to update user details'
                 });
             }
-        } catch (error) {
+        } catch(error) {
             res.status(500).json({
                 message: error.errors
             })
         }
     }
 
-    static async deleteUser(req, res){
+    static async deleteUser(req, res) {
         try {
             const { id } = req.params;
             const dbResponse = await db.User.destroy({
@@ -125,7 +125,7 @@ class AuthController {
                     id
                 }
             });
-            if(dbResponse === 1){
+            if(dbResponse === 1) {
                 res.status(200).json({
                     message: 'User deleted sucessfully'
                 });
@@ -134,7 +134,7 @@ class AuthController {
                     message: 'Unable to delete user'
                 });
             }
-        } catch (error) {
+        } catch(error) {
             res.status(500).json({
                 message: error.errors
             })
