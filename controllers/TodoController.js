@@ -36,6 +36,9 @@ class TodoController {
             const dbResponse = await db.Todo.findAll({
                 where: {
                     userId: id
+                },
+                attributes: { 
+                    exclude: ['userId'] 
                 }
             });
 
