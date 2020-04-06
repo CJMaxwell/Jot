@@ -14,21 +14,35 @@ class AuthController {
                 return;
             };
             const hashedPassword = await hashPassword(password);
-            const dbResponse = await db.User.create({firstName, lastName, email, password:hashedPassword});
-            const user = {
-                id: dbResponse.dataValues.id,
-                firstName: dbResponse.dataValues.firstName,
-                lastName: dbResponse.dataValues.lastName,
-                email: dbResponse.dataValues.email
-            };
-            res.status(201).json({
-                message: 'successful',
-                user,
-                token: generateToken(user)
+            await db.User.findOrCreate({
+                where: {
+                    email
+                },
+                defaults: {
+                    firstName, lastName, email, password:hashedPassword
+                } 
+            })
+            .spread((newUser, created) => {
+                if(created === false) {
+                    res.status(409).json({
+                        message: 'Email already exists'
+                    });
+                    return;
+                };
+                const user = {
+                    id: newUser.dataValues.id,
+                    firstName: newUser.dataValues.firstName,
+                    lastName: newUser.dataValues.lastName,
+                    email: newUser.dataValues.email
+                };
+                res.status(201).json({
+                    message: 'successful',
+                    user,
+                    token: generateToken(user)
+                });
             });
-            
         } catch(error) {
-           res.status(400).json({
+           res.status(500).json({
                message: error.errors[0].message
            });
         }
