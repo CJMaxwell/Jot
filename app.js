@@ -22,3 +22,6 @@ app.get('/', (req, res) => res.status(200).send(`<h1 style="text-align: center; 
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server started on Port ${process.env.PORT}`);
 });
+
+
+export default app;
