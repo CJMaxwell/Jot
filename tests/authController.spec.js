@@ -54,6 +54,19 @@ describe('User sign up', () => {
         expect(response.body.message).to.equal('Email already exists');
         
     });
+    it('should return "Email and password are required" if any of them is not provided', async () => {
+        const response = await request(app)
+            .post('/api/v1/auth/signup')
+            .set('Accept', 'application/x-www-form-urlencoded')
+            .send({
+                firstName: 'Maxwell',
+                lastName: 'Chijioke',
+                email: '',
+                password: 'ThisIsTest'
+            });
+        expect(response.statusCode).to.equal(400);
+        expect(response.body.message).to.equal('Email and password are required');
+    });
     it('Should return firstName, lastName, email and a JWT token once a user signs up', async () => {
         const response = await request(app)
             .post('/api/v1/auth/signup')
@@ -71,17 +84,16 @@ describe('User sign up', () => {
         expect(response.statusCode).to.equal(201);
         expect(response.body).to.be.an('object');
     });
-    it('should return "Email and password are required" if any of them is not provided', async () => {
+})
+
+describe('User login',() => {
+    it('should return "Please your email and password" if the email or password is invalid', async () => {
         const response = await request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v1/auth/login')
             .set('Accept', 'application/x-www-form-urlencoded')
             .send({
-                firstName: 'Maxwell',
-                lastName: 'Chijioke',
-                email: '',
-                password: 'ThisIsTest'
+                email: 'maxwellchijioke@gmail.com',
+                password: ''
             });
-        expect(response.statusCode).to.equal(400);
-        expect(response.body.message).to.equal('Email and password are required');
-    });
+    })
 })
