@@ -1,0 +1,341 @@
+{
+    "swagger": "2.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Todo App",
+        "description": "A minimal and easy to use todo application",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+
+    "host": "localhost:4000",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "Todo",
+            "description": "Everything about your Todos"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+
+    "paths": {
+        "/todos": {
+            "get": {
+                "tags": [
+                  "Todo"
+                ],
+                "summary": "Get all user todos",
+                "description": "Returns all todos",
+                "operationId": "getUserTodos",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "user authentication token",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Ok",
+                    "schema": {
+                      "$ref": "#/definitions/Todos"
+                    }
+                  },
+                  "401": {
+                    "description": "Unauthorized"
+                  },
+                  "403": {
+                    "description": "Access denied"
+                  },
+                  "500": {
+                    "description": "Unable to get Todos for user"
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+              },
+          "post": {
+            "tags": [
+              "Todo"
+            ],
+            "summary": "Add a new todo by passing the title and description to the request body",
+            "description": "",
+            "operationId": "addTodo",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "user authentication token",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "in": "body",
+                    "name": "body",
+                    "description": "body of of dairy entry that needs to be created",
+                    "required": true,
+                    "schema": {
+                    "$ref": "#/definitions/Todo"
+                    }
+                }
+            ],
+            "responses": {
+                "201": {
+                  "description": "Created",
+                  "schema": {
+                    "$ref": "#/definitions/Todos"
+                  }
+                },
+                "400": {
+                    "description": "Title and description are required"
+                  }
+            },
+            "security": [
+                {
+                  "api_key": []
+                }
+            ]
+          }
+        },
+
+        "/todos/{id}": {
+            "get": {
+                "tags": [
+                  "Todo"
+                ],
+                "summary": "Returns a single todo",
+                "description": "",
+                "operationId": "getTodo",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "user authentication token",
+                      "required": true,
+                      "type": "string"
+                  },
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of todo to retrieve",
+                    "required": true,
+                    "type": "integer",
+                    "schema": {
+                      "$ref": "#/definitions/id"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Ok",
+                    "schema": {
+                        "$ref": "#/definitions/Todo"
+                      }
+                  },
+                  "404": {
+                    "description": "Todo does not exist"
+                  }
+                },
+                "security": [
+                      {
+                          "api_key": []
+                      }
+                  ]
+              },
+            "put": {
+              "tags": [
+                "Todo"
+              ],
+              "summary": "Updates an existing todo",
+              "description": "",
+              "operationId": "updateTodo",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "user authentication token",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "ID of todo to be updated",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64",
+                  "schema": {
+                    "$ref": "#/definitions/id"
+                  }
+                },
+                {
+                    "in": "body",
+                    "name": "body",
+                    "description": "body of of dairy entry that needs to be created",
+                    "required": true,
+                    "schema": {
+                    "$ref": "#/definitions/upateTodo"
+                    }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Ok"
+                },
+                "404": {
+                  "description": "Todo does not exist"
+                }
+              },
+              "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                  "Todo"
+                ],
+                "summary": "Deletes a specialized todo",
+                "description": "",
+                "operationId": "deleteTodo",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "user authentication token",
+                      "required": true,
+                      "type": "string"
+                  },
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of todo to be updated",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64",
+                    "schema": {
+                      "$ref": "#/definitions/id"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Ok"
+                  },
+                  "404": {
+                    "description": "Todo does not exist"
+                  }
+                },
+                "security": [
+                      {
+                          "api_key": []
+                      }
+                  ]
+              }
+            
+        }
+    },
+
+    "definitions": {
+        "id": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Todo": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "format": "varchar"
+              },
+              "description": {
+                "type": "string",
+                "format": "text"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+        },
+        "upateTodo": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "format": "varchar"
+              },
+              "description": {
+                "type": "string",
+                "format": "text"
+              },
+              "completed": {
+                "type": "boolean"
+              }
+              
+            }
+        },
+        "Todos": {
+            "type": "object",
+            "properties": {
+                "todos": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Todo"
+                    }
+                }
+            }
+        }
+    }
+    
+}
