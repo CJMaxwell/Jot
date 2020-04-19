@@ -57,15 +57,14 @@ class TodoController {
 
     static async getTodo(req, res) {
         try {
-            const { id } = req.user;
-            const { id: userId } = req.params;
+            const { id } = req.params;
+            const { id: userId } = req.user;
             const dbResponse = await db.Todo.findOne({
                 where: {
                     id,
                     userId
                 }
             });
-            //console.log(dbResponse);
 
             const todoItem = {
                 title: dbResponse.dataValues.title,
@@ -85,8 +84,8 @@ class TodoController {
 
     static async updateTodo(req, res) {
         try {
-            const { id } = req.user;
-            const { id: userId } = req.params;
+            const { id } = req.params;
+            const { id: userId } = req.user;
             const { title, description, completed } = req.body;
             const dbResponse = await db.Todo.update({ title, description, completed },
                 {
