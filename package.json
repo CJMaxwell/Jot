@@ -14,7 +14,6 @@
   "author": "Chukwunonyerem  Maxwell",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.8.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
