@@ -29,6 +29,7 @@ class AuthController {
                     });
                     return;
                 };
+                
                 const user = {
                     id: newUser.dataValues.id,
                     firstName: newUser.dataValues.firstName,
@@ -40,10 +41,11 @@ class AuthController {
                     user,
                     token: generateToken(user)
                 });
+                return;
             });
         } catch(error) {
            res.status(500).json({
-               message: error.errors[0].message
+               message: error.Error
            });
         }
     }
@@ -54,7 +56,7 @@ class AuthController {
 
             if(!(email && password)) {
                 res.status(400).json({
-                    message: 'Please your email and password'
+                    message: 'Please enter your email and/or password'
                 });
                 return;
             };

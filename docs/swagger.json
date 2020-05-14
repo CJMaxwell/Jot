@@ -298,6 +298,10 @@
                 "type": "string",
                 "format": "text"
               },
+              "Date": {
+                "type": "string",
+                "format": "date-time"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"

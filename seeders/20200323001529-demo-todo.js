@@ -7,6 +7,7 @@ module.exports = {
         title: "Morning Calls",
         description: "Go to the gym",
         completed: false,
+        date: new Date(),
         userId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -15,7 +16,8 @@ module.exports = {
         title: "Leisure time",
         description: "Play call of duty",
         completed: false,
-        userId: 29,
+        date: new Date(),
+        userId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -23,7 +25,8 @@ module.exports = {
         title: "Chores",
         description: "Clean up the house",
         completed: false,
-        userId: 29,
+        date: new Date(),
+        userId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -31,7 +34,8 @@ module.exports = {
         title: "Fit fam",
         description: "30 push ups",
         completed: false,
-        userId: 32,
+        date: new Date(),
+        userId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});

@@ -3,7 +3,7 @@ import db from '../models';
 class TodoController {
     static async createTodo(req, res) {
         try {
-            const { title, description } = req.body;
+            const { title, description, date } = req.body;
             if(!(title && description)) {
                 res.status(400).json({
                     message: 'Title and description are required'
@@ -11,10 +11,11 @@ class TodoController {
                 return;
             };
             const { id } = req.user;
-            const dbResponse = await db.Todo.create({ title, description, completed: false,userId: id});
+            const dbResponse = await db.Todo.create({ title, description, completed: false, date, userId: id});
             const todo = {
                 title: dbResponse.dataValues.title,
                 description: dbResponse.dataValues.description,
+                date: dbResponse.dataValues.date,
                 updatedAt: dbResponse.dataValues.updatedAt,
                 createdAt: dbResponse.dataValues.createdAt,
 
@@ -69,7 +70,8 @@ class TodoController {
             const todoItem = {
                 title: dbResponse.dataValues.title,
                 description: dbResponse.dataValues.description,
-                completed: dbResponse.dataValues.completed
+                completed: dbResponse.dataValues.completed,
+                date: dbResponse.dataValues.date
             }
             res.status(200).json({
                 todoItem
@@ -86,8 +88,8 @@ class TodoController {
         try {
             const { id } = req.params;
             const { id: userId } = req.user;
-            const { title, description, completed } = req.body;
-            const dbResponse = await db.Todo.update({ title, description, completed },
+            const { title, description, completed, date } = req.body;
+            const dbResponse = await db.Todo.update({ title, description, completed, date },
                 {
                     where: {
                         id,
@@ -102,7 +104,8 @@ class TodoController {
                     todo: {
                         title,
                         description,
-                        completed
+                        completed,
+                        date
                     }
                 });
             }else{
