@@ -25,7 +25,7 @@ class TodoController {
             });
         } catch(error) {
            res.status(500).json({
-               message: 'Unable to create Todo'
+               message: 'Unable to create Memoir'
            })
         }
         
@@ -50,7 +50,7 @@ class TodoController {
             
         } catch(error) {
             res.status(500).json({
-                message: 'Unable to get Todos for user'
+                message: 'Unable to get Memoirs for this user'
             })
            
         }
@@ -78,7 +78,7 @@ class TodoController {
             })
         } catch(error) {
             res.status(500).json({
-                message: 'An error occurred while fetching Todo'
+                message: 'An error occurred while fetching Memoir'
             })
         }
          
@@ -110,12 +110,12 @@ class TodoController {
                 });
             }else{
                 res.status(400).json({
-                    message: 'Todo was not updated'
+                    message: 'Memoir was not updated'
                 });
             }
         } catch(error) {
             res.status(500).json({
-                message: 'Todo could not be updated'
+                message: 'Memoir could not be updated'
             });
         }
        
@@ -133,17 +133,17 @@ class TodoController {
             });
             if(dbResponse === 1) {
                 res.status(200).json({
-                    message: 'Todo was deleted successfully'
+                    message: 'Memoir was deleted successfully'
                 });
             }else{
                 res.status(400).json({
-                    message: 'Unable to delete Todo item'
+                    message: 'Unable to delete Memoir item'
                 });
             }
             
         } catch(error) {
             res.status(500).json({
-                message: 'Todo could not be deleted'
+                message: 'Memoir could not be deleted'
             });
         }
     }

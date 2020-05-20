@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Todo = sequelize.define('Todo', {
     title: DataTypes.STRING,
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     completed: DataTypes.BOOLEAN,
     date: DataTypes.DATE,
     userId: DataTypes.INTEGER,
